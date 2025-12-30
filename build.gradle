@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group 'org.rosterleague'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    junitVersion = '5.10.2'
+}
+
+sourceCompatibility = '21'
+targetCompatibility = '21'
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+// Configure JPA annotation processing to generate metamodel classes using EclipseLink
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs += [
+            '-processor', 'org.eclipse.persistence.internal.jpa.modelgen.CanonicalModelProcessor',
+            '-Aeclipselink.persistencexml=src/main/resources/META-INF/persistence.xml'
+    ]
+}
+
+dependencies {
+    compileOnly('jakarta.platform:jakarta.jakartaee-api:10.0.0')
+    annotationProcessor('org.eclipse.persistence:org.eclipse.persistence.jpa.modelgen.processor:4.0.7')
+    compileOnly('org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1')
+
+    // another example of JPA annotation processor
+    // annotationProcessor('org.hibernate:hibernate-jpamodelgen:7.1.1.Final')
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+}
+
+test {
+    useJUnitPlatform()
+}

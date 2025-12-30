@@ -1,0 +1,49 @@
+/*
+ * Copyright (c), Eclipse Foundation, Inc. and its licensors.
+ *
+ * All rights reserved.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Distribution License v1.0, which is available at
+ * https://www.eclipse.org/org/documents/edl-v10.php
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+package org.rosterleague.common;
+
+import java.io.Serial;
+import java.io.Serializable;
+
+
+public class LeagueDetails implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 290368886584321980L;
+    private final String id;
+    private final String name;
+    private final String sport;
+
+    public LeagueDetails(String id, String name, String sport) {
+
+        this.id = id;
+        this.name = name;
+        this.sport = sport;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSport() {
+        return sport;
+    }
+
+    @Override
+    public String toString() {
+        return id + " " + name + " " + sport;
+    }
+
+}
