@@ -72,4 +72,6 @@ public interface Request {
     void clearAllEntities();
 
     List<StandingTeam> getLeagueStanding(String leagueId);
+
+    List<TeamDetails> getAllTeams();
 }

@@ -32,17 +32,29 @@ public class Team implements Serializable {
     private String id;
     private String name;
     private String city;
+    private String color;
     private Collection<Player> players;
+
+
     private League league;
-    
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
     /** Creates a new instance of Team */
     public Team() {
     }
     
-    public Team(String id, String name, String city) {
+    public Team(String id, String name, String city, String color) {
         this.id = id;
         this.name = name;
         this.city = city;
+        this.color = color;
     }
 
     @Id

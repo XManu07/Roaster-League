@@ -38,19 +38,19 @@ public class MainServlet extends HttpServlet {
             ejbRequest.createLeague(new LeagueDetails("L4", "Alpine", "Snowboarding"));
 
             // Teams
-            ejbRequest.createTeamInLeague(new TeamDetails("T1", "Honey Bees", "Visalia"), "L1");
-            ejbRequest.createTeamInLeague(new TeamDetails("T2", "Gophers", "Manteca"), "L1");
-            ejbRequest.createTeamInLeague(new TeamDetails("T5", "Crows", "Orland"), "L1");
+            ejbRequest.createTeamInLeague(new TeamDetails("T1", "Honey Bees", "Visalia", "red"), "L1");
+            ejbRequest.createTeamInLeague(new TeamDetails("T2", "Gophers", "Manteca", "white-blue"), "L1");
+            ejbRequest.createTeamInLeague(new TeamDetails("T5", "Crows", "Orland", "green-black"), "L1");
 
-            ejbRequest.createTeamInLeague(new TeamDetails("T3", "Deer", "Bodie"), "L2");
-            ejbRequest.createTeamInLeague(new TeamDetails("T4", "Trout", "Truckee"), "L2");
+            ejbRequest.createTeamInLeague(new TeamDetails("T3", "Deer", "Bodie", "white-red"), "L2");
+            ejbRequest.createTeamInLeague(new TeamDetails("T4", "Trout", "Truckee", "red"), "L2");
 
-            ejbRequest.createTeamInLeague(new TeamDetails("T6", "Marmots", "Auburn"), "L3");
-            ejbRequest.createTeamInLeague(new TeamDetails("T7", "Bobcats", "Grass Valley"), "L3");
-            ejbRequest.createTeamInLeague(new TeamDetails("T8", "Beavers", "Placerville"), "L3");
+            ejbRequest.createTeamInLeague(new TeamDetails("T6", "Marmots", "Auburn", "green-black"), "L3");
+            ejbRequest.createTeamInLeague(new TeamDetails("T7", "Bobcats", "Grass Valley", "red"), "L3");
+            ejbRequest.createTeamInLeague(new TeamDetails("T8", "Beavers", "Placerville", "white-red"), "L3");
 
-            ejbRequest.createTeamInLeague(new TeamDetails("T9", "Penguins", "Incline Village"), "L4");
-            ejbRequest.createTeamInLeague(new TeamDetails("T10", "Land Otters", "Tahoe City"), "L4");
+            ejbRequest.createTeamInLeague(new TeamDetails("T9", "Penguins", "Incline Village", "white-red"), "L4");
+            ejbRequest.createTeamInLeague(new TeamDetails("T10", "Land Otters", "Tahoe City", "blue"), "L4");
 
             // Games in league L1
             ejbRequest.createGameInLeague(new GameDetails("M1", "T1", "T2", 1, 2), "L1");
@@ -235,6 +235,7 @@ public class MainServlet extends HttpServlet {
             List<TeamDetails> teamList;
             List<LeagueDetails> leagueList;
             List<String> sportList;
+            List<TeamDetails> allTeams;
 
             printer.println("Details of league L1: ");
             leagueDetails = ejbRequest.getLeague("L1");
@@ -309,6 +310,11 @@ public class MainServlet extends HttpServlet {
             printer.println("List all the sports of player P28: ");
             sportList = ejbRequest.getSportsOfPlayer("P28");
             printDetailsList(sportList);
+            printer.println();
+
+            printer.println("List all teams: ");
+            allTeams = ejbRequest.getAllTeams();
+            printDetailsList(allTeams);
             printer.println();
 
         } catch (Exception ex) {

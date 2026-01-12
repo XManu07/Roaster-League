@@ -145,7 +145,7 @@ public class RequestBean implements Request, Serializable {
         }
 
         for (Team team : teams) {
-            TeamDetails teamDetails = new TeamDetails(team.getId(), team.getName(), team.getCity());
+            TeamDetails teamDetails = new TeamDetails(team.getId(), team.getName(), team.getCity(), team.getColor());
             detailsList.add(teamDetails);
         }
         return detailsList;
@@ -425,7 +425,7 @@ public class RequestBean implements Request, Serializable {
         logger.info("createTeamInLeague");
         try {
             League league = em.find(League.class, leagueId);
-            Team team = new Team(teamDetails.getId(), teamDetails.getName(), teamDetails.getCity());
+            Team team = new Team(teamDetails.getId(), teamDetails.getName(), teamDetails.getCity(), teamDetails.getColor());
             em.persist(team);
             team.setLeague(league);
             league.addTeam(team);
@@ -458,7 +458,7 @@ public class RequestBean implements Request, Serializable {
 
         try {
             Team team = em.find(Team.class, teamId);
-            teamDetails = new TeamDetails(team.getId(), team.getName(), team.getCity());
+            teamDetails = new TeamDetails(team.getId(), team.getName(), team.getCity(), team.getColor());
         } catch (Exception ex) {
             throw new EJBException(ex);
         }
@@ -638,5 +638,30 @@ public class RequestBean implements Request, Serializable {
             throw new EJBException(ex);
         }
         return standing;
+    }
+
+    public List<TeamDetails> getAllTeams() {
+        logger.info("getAllTeams");
+        List<TeamDetails> detailsList = new ArrayList<>();
+        List<Team> teams = null;
+
+        try {
+            CriteriaQuery<Team> cq = cb.createQuery(Team.class);
+            if (cq != null) {
+                Root<Team> team = cq.from(Team.class);
+
+                cq.select(team);
+                TypedQuery<Team> q = em.createQuery(cq);
+                teams = q.getResultList();
+            }
+
+            for (Team team : teams) {
+                TeamDetails teamDetails = new TeamDetails(team.getId(), team.getName(), team.getCity(), team.getColor());
+                detailsList.add(teamDetails);
+            }
+        } catch (Exception ex) {
+            throw new EJBException(ex);
+        }
+        return detailsList;
     }
 }
